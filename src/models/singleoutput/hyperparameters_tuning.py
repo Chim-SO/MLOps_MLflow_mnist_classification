@@ -6,15 +6,6 @@ import yaml
 
 from src.models.singleoutput.train import train
 
-
-def grid_search(data_path, params):
-    for n_l in params['n_layers']:
-        for n_u in params['units']:
-            for ac in params['activation_function']:
-                for b in params['batch_size']:
-                    train(data_path, n_l, n_u, ac, params['loss'][0], params['metric'][0], params['epochs'][0], b)
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Hyperparameter tuning of a Keras model with single output for MNIST classification")
