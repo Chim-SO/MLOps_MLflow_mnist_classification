@@ -1,0 +1,20 @@
+# Configuration file for deep learning model
+# ------------------------------
+# Data parameters
+data:
+  dataset_path : '../../../data/processed/'
+
+# Training parameters
+training:
+  batch_size: 128
+  num_epochs: 15
+
+# Logging and output parameters
+mlflow:
+  mlruns_path: 'file:../../../models/mlruns'
+  experiment_name: 'convnet'
+
+# Grid search:
+hyperparameter_tuning:
+  batch_size: [128, 256]
+  num_epochs: [10, 15, 20]
