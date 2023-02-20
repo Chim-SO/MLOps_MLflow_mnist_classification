@@ -2,7 +2,7 @@
 # ------------------------------
 # Data parameters
 data:
-  dataset_path : '../../../data/processed/'
+  dataset_path : 'data/processed/'
 
 # Model parameters
 model:
@@ -20,7 +20,7 @@ training:
 
 # Logging and output parameters
 mlflow:
-  mlruns_path: 'file:../../../models/mlruns'
+  mlruns_path: 'file:models/mlruns'
   experiment_name: 'singleOutput'
 
 # Grid search:

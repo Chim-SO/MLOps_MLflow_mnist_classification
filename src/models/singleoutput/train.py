@@ -10,8 +10,8 @@ from numpy.random import seed
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 
-from model import create_model
-from preprocessing import scale
+from src.models.singleoutput.model import create_model
+from src.models.singleoutput.preprocessing import scale
 from src.data.dataset import load_data
 
 seed(1)
@@ -86,7 +86,7 @@ def train(data_path, n_layers, n_units, activation_function, loss, metric, epoch
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train a Keras model with single output for MNIST classification")
-    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/singleoutput.yaml')
+    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/singleoutput_0.yaml')
     args = parser.parse_args()
 
     # Load the configuration file:

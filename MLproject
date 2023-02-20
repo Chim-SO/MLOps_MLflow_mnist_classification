@@ -1,0 +1,9 @@
+name: MNIST-classification
+
+python_env: python_env.yaml
+
+entry_points:
+  train_singleoutput:
+    command: "python src/models/singleoutput/train.py -c {config_file}"
+    parameters:
+      config_file: {type: str, description: "Path to the configuration file", default: 'configs/singleoutput.yaml'}
