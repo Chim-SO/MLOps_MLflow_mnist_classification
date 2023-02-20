@@ -5,6 +5,7 @@ import random
 import mlflow.keras
 import numpy as np
 import tensorflow as tf
+import yaml
 from numpy.random import seed
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
@@ -18,7 +19,7 @@ tf.random.set_seed(1)
 tf.config.experimental.enable_op_determinism()
 random.seed(2)
 
-
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 def eval_metrics(actual, pred):
     acc = round(accuracy_score(actual, pred, normalize=True) * 100, 2)
     precision = round(precision_score(actual, pred, average='macro') * 100, 2)
@@ -27,8 +28,7 @@ def eval_metrics(actual, pred):
     return acc, precision, recall, f1
 
 
-def train(data_path, n_layers, n_units, activation_function, loss, metric, epochs, batch_size, name='singleOutput'):
-
+def train(data_path, n_layers, n_units, activation_function, loss, metric, epochs, batch_size):
     # Log parameters:
     mlflow.log_param("n_layers", n_layers)
     mlflow.log_param("units", n_units)
@@ -81,20 +81,27 @@ def train(data_path, n_layers, n_units, activation_function, loss, metric, epoch
     mlflow.log_metric('test_f1', f1)
 
     # Log model:
-    mlflow.keras.log_model(model, name)
+    mlflow.keras.log_model(model, 'models')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train a Keras model with single output for MNIST classification")
-    parser.add_argument("--n-layers", "-n", type=int, default=5)
-    parser.add_argument("--units", "-u", type=int, default=224)
-    parser.add_argument("--activation-function", "-a", type=str, default='sigmoid')
-    parser.add_argument("--loss", "-l", type=str, default='mae')
-    parser.add_argument("--metric", "-m", type=str, default='mse')
-    parser.add_argument("--epochs", "-e", type=int, default=200)
-    parser.add_argument("--batch-size", "-b", type=int, default=128)
+    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/singleoutput.yaml')
     args = parser.parse_args()
 
-    data_path = "../../../data/processed/"
-    train(data_path, args.n_layers, args.units, args.activation_function, args.loss, args.metric, args.epochs,
-          args.batch_size)
+    # Load the configuration file:
+    with open(args.config_file, 'r') as file:
+        config = yaml.safe_load(file)
+
+    # Get parameters:
+    data_path = config['data']['dataset_path']
+
+    # MLflow setup
+    mlflow.set_tracking_uri(config['mlflow']['mlruns_path'])
+    mlflow.set_experiment(config['mlflow']['experiment_name'])
+
+    with mlflow.start_run():
+        train(data_path, config['model']['num_layers'], config['model']['num_units'],
+              config['model']['activation_function'], config['training']['loss_function'], config['training']['metric'],
+              config['training']['num_epochs'],
+              config['training']['batch_size'])
