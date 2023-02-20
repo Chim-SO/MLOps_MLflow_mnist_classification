@@ -1,0 +1,34 @@
+# Configuration file for deep learning model
+# ------------------------------
+# Data parameters
+data:
+  dataset_path : '../../../data/processed/'
+
+# Model parameters
+model:
+  name: 'singleoutput'
+  num_units: 224
+  num_layers: 5
+  activation_function : 'sigmoid'
+
+# Training parameters
+training:
+  batch_size: 128
+  num_epochs: 200
+  loss_function: 'mae'
+  metric: 'mse'
+
+# Logging and output parameters
+mlflow:
+  mlruns_path: 'file:../../../models/mlruns'
+  experiment_name: 'singleOutput'
+
+# Grid search:
+hyperparameter_tuning:
+  num_layers: [3, 5]
+  num_units: [16, 64, 224]
+  activation_function: ['relu', 'sigmoid']
+  batch_size: [128, 256]
+  loss_function: ['mae']
+  metric: ['mse']
+  num_epochs: [200]
