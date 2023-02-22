@@ -1,0 +1,10 @@
+mlflow<3,>=2.1
+bcrypt==4.0.1
+boto3==1.26.61
+google-cloud-storage==2.7.0
+pandas==1.5.2
+pillow==9.3.0
+pyopenssl==22.1.0
+scipy==1.9.3
+tensorflow-gpu==2.11.0
+tensorflow==2.11.0
