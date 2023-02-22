@@ -5,7 +5,7 @@ import mlflow
 import numpy as np
 from PIL import Image, ImageChops
 
-from preprocessing import scale
+from src.models.cnnbased.preprocessing import scale
 
 
 def trim(im):
