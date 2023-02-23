@@ -7,3 +7,7 @@ entry_points:
     command: "python  -m src.models.singleoutput.train -c {config_file}"
     parameters:
       config_file: {type: str, description: "Path to the configuration file", default: 'configs/singleoutput.yaml'}
+  train_convnet:
+    command: "python  -m src.models.cnnbased.train -c {config_file}"
+    parameters:
+      config_file: {type: str, description: "Path to the configuration file", default: 'configs/cnnbased.yaml'}
