@@ -12,7 +12,7 @@ training:
 # Logging and output parameters
 mlflow:
   mlruns_path: 'file:models/mlruns'
-  experiment_name: 'convnet'
+  experiment_name: 'cnnbased'
 
 # Grid search:
 hyperparameter_tuning:
