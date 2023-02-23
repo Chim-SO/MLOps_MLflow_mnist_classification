@@ -10,9 +10,9 @@ from numpy.random import seed
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 
+from src.data.dataset import load_data
 from src.models.singleoutput.model import create_model
 from src.models.singleoutput.preprocessing import scale
-from src.data.dataset import load_data
 
 seed(1)
 tf.random.set_seed(1)
@@ -20,6 +20,8 @@ tf.config.experimental.enable_op_determinism()
 random.seed(2)
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
+
 def eval_metrics(actual, pred):
     acc = round(accuracy_score(actual, pred, normalize=True) * 100, 2)
     precision = round(precision_score(actual, pred, average='macro') * 100, 2)
@@ -97,9 +99,8 @@ if __name__ == '__main__':
     data_path = config['data']['dataset_path']
 
     # MLflow setup
-    mlflow.set_tracking_uri(config['mlflow']['mlruns_path'])
+    # mlflow.set_tracking_uri(config['mlflow']['mlruns_path'])
     mlflow.set_experiment(config['mlflow']['experiment_name'])
-
     with mlflow.start_run():
         train(data_path, config['model']['num_layers'], config['model']['num_units'],
               config['model']['activation_function'], config['training']['loss_function'], config['training']['metric'],
