@@ -206,7 +206,7 @@ fabric.properties
 
 # exclude data from source control by default
 /data/
-
+/mlruns/
 # Mac OS-specific storage files
 .DS_Store
 
