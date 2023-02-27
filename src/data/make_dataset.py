@@ -1,3 +1,4 @@
+import argparse
 import os.path
 import urllib.request
 
@@ -13,3 +14,11 @@ def download_raw_data(raw_data_path):
     urllib.request.urlretrieve(train_labels_url, os.path.join(raw_data_path, 'train_labels.gz'))
     urllib.request.urlretrieve(test_images_url, os.path.join(raw_data_path, 'test_images.gz'))
     urllib.request.urlretrieve(test_labels_url, os.path.join(raw_data_path, 'test_labels.gz'))
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Download dataset")
+    parser.add_argument("-r", "--raw-path", help="Raw data path", required=True)
+    args = parser.parse_args()
+
+    download_raw_data(args.raw_path)
