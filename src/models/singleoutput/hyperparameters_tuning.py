@@ -9,7 +9,7 @@ from src.models.singleoutput.train import train
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Hyperparameter tuning of a Keras model with single output for MNIST classification")
-    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/singleoutput.yaml')
+    parser.add_argument("--config-file", "-c", type=str, default='configs/singleoutput.yaml')
     args = parser.parse_args()
 
     # Load the configuration file:

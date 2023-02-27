@@ -10,16 +10,14 @@ from numpy.random import seed
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 
-from src.models.cnnbased.model import create_model
 from src.data.dataset import load_data
+from src.models.cnnbased.model import create_model
 from src.models.cnnbased.preprocessing import scale, reshape, onehot_encoding
 
 seed(1)
 tf.random.set_seed(1)
 tf.config.experimental.enable_op_determinism()
 random.seed(2)
-
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 
 def eval_metrics(actual, pred):
@@ -91,12 +89,12 @@ def train(data_path, epochs, batch_size):
     mlflow.log_metric('test_f1', f1)
 
     # Log model:
-    mlflow.keras.log_model(model, 'models')
+    mlflow.tensorflow.log_model(model, 'models')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train a Keras CNN-based model for MNIST classification")
-    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/cnnbased.yaml')
+    parser.add_argument("--config-file", "-c", type=str, default='configs/cnnbased.yaml')
     args = parser.parse_args()
 
     # Load the configuration file:

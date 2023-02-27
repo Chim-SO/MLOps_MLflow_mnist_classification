@@ -19,8 +19,6 @@ tf.random.set_seed(1)
 tf.config.experimental.enable_op_determinism()
 random.seed(2)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
-
 
 def eval_metrics(actual, pred):
     acc = round(accuracy_score(actual, pred, normalize=True) * 100, 2)
@@ -83,7 +81,7 @@ def train(data_path, n_layers, n_units, activation_function, loss, metric, epoch
     mlflow.log_metric('test_f1', f1)
 
     # Log model:
-    mlflow.keras.log_model(model, 'models')
+    mlflow.tensorflow.log_model(model, 'models')
 
 
 if __name__ == '__main__':
