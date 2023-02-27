@@ -1,3 +1,4 @@
+import argparse
 import gzip
 import os
 
@@ -36,3 +37,12 @@ def preprocess(raw_data_path, preprocessed_data_path):
     # Save to CSV files
     train_df.to_csv(os.path.join(preprocessed_data_path, 'train.csv'), index=False, header=False)
     test_df.to_csv(os.path.join(preprocessed_data_path, 'test.csv'), index=False, header=False)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Preprocess dataset")
+    parser.add_argument("-r", "--raw-path", help="Raw data path", required=True)
+    parser.add_argument("-p", "--preprocessed-path", help="Preprocessed data path", required=True)
+    args = parser.parse_args()
+
+    preprocess(args.raw_path, args.preprocessed_path)
