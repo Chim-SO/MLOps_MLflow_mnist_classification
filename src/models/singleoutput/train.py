@@ -86,7 +86,7 @@ def train(data_path, n_layers, n_units, activation_function, loss, metric, epoch
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Train a Keras model with single output for MNIST classification")
-    parser.add_argument("--config-file", "-c", type=str, default='../../../configs/singleoutput_0.yaml')
+    parser.add_argument("--config-file", "-c", type=str, default='configs/singleoutput_0.yaml')
     args = parser.parse_args()
 
     # Load the configuration file:
