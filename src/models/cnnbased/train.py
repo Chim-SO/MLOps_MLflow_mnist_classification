@@ -10,7 +10,7 @@ from numpy.random import seed
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import train_test_split
 
-from src.data.dataset import load_data
+from src.data.dataloader import load_data
 from src.models.cnnbased.model import create_model
 from src.models.cnnbased.preprocessing import scale, reshape, onehot_encoding
 
