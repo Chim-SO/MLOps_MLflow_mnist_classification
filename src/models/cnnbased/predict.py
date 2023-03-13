@@ -3,18 +3,9 @@ import os
 import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
-from PIL import Image, ImageChops
+from PIL import Image
 
-from src.models.cnnbased.preprocessing import scale
-
-
-def trim(im):
-    bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
-    diff = ImageChops.difference(im, bg)
-    diff = ImageChops.add(diff, diff, 2.0, -100)
-    bbox = diff.getbbox()
-    return im.crop(bbox)
-
+from src.models.cnnbased.preprocessing import scale, trim
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 if __name__ == '__main__':

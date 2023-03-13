@@ -1,21 +1,13 @@
+import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
-from PIL import Image, ImageChops
+from PIL import Image
 
-from src.models.singleoutput.preprocessing import scale, reshape
-import matplotlib.pyplot as plt
-
-def trim(im):
-    bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
-    diff = ImageChops.difference(im, bg)
-    diff = ImageChops.add(diff, diff, 2.0, -100)
-    bbox = diff.getbbox()
-    return im.crop(bbox)
-
+from src.models.singleoutput.preprocessing import scale, reshape, trim
 
 if __name__ == '__main__':
     # Load image:
-    im = Image.open("../../../data/external/test/5_0.png").convert('L')
+    im = Image.open("../../../data/external/test/5_1.png").convert('L')
     # im.show()
 
     # Trim image:
@@ -52,6 +44,6 @@ if __name__ == '__main__':
     ax[1].set_title('Trimmed')
     ax[2].imshow(im_res, cmap='gray')
     ax[2].set_title('Resized')
-    ax[3].imshow(x.reshape((28,28)), cmap='gray')
+    ax[3].imshow(x.reshape((28, 28)), cmap='gray')
     ax[3].set_title('Preprocessed')
     plt.show()
