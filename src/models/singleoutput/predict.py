@@ -3,11 +3,11 @@ import mlflow
 import numpy as np
 from PIL import Image
 
-from src.models.singleoutput.preprocessing import scale, reshape, trim
+from src.models.singleoutput.preprocessing import scale, reshape, trim, add_border
 
 if __name__ == '__main__':
     # Load image:
-    im = Image.open("../../../data/external/test/5_1.png").convert('L')
+    im = Image.open("../../../data/external/test/0_0.png").convert('L')
     # im.show()
 
     # Trim image:
@@ -15,8 +15,9 @@ if __name__ == '__main__':
     # im_trim.show()
 
     # Resize image:
-    im_res = im_trim.resize((28, 28))
-    # im_res.show()
+    b = 4
+    im_res = im_trim.resize((28 - 2 * b, 28 - 2 * b))
+    im_res = add_border(im_res, b)
 
     # Image preprocessing:
     x = 1 - np.array(im_res)
@@ -27,8 +28,8 @@ if __name__ == '__main__':
     print(x.shape)
 
     # Load model:
-    mlflow.set_tracking_uri('file:../../../models/mlruns')
-    logged_model = 'runs:/70f19bb490fe413482d066d36fe62d80/models'
+    mlflow.set_tracking_uri('file:../../../mlruns')
+    logged_model = 'runs:/5bc3e2f16e254125a966090afccb085d/models'
     # Load model as a PyFuncModel.
     loaded_model = mlflow.pyfunc.load_model(logged_model)
 

@@ -1,4 +1,4 @@
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageOps
 
 
 def scale(data, factor=255):
@@ -17,3 +17,7 @@ def trim(im):
     diff = ImageChops.add(diff, diff, 2.0, -100)
     bbox = diff.getbbox()
     return im.crop(bbox)
+
+
+def add_border(im, border=5, fill=255):
+    return ImageOps.expand(im, border=border, fill=fill)

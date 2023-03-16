@@ -5,21 +5,22 @@ import mlflow
 import numpy as np
 from PIL import Image
 
-from src.models.cnnbased.preprocessing import scale, trim
+from src.models.cnnbased.preprocessing import scale, trim, add_border
 
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 if __name__ == '__main__':
     # Load image:
-    im = Image.open("../../../data/external/test/8_0.png").convert('L')
+    im = Image.open("../../../data/external/test/3_0.png").convert('L')
     # im.show()
 
     # Trim image:
     im_trim = trim(im)
     # im_trim.show()
 
-    # Resize image:
-    im_res = im_trim.resize((28, 28))
-    # im_res.show()
+    # Resize image and add borders:
+    b = 4
+    im_res = im_trim.resize((28 - 2*b, 28 - 2*b))
+    im_res = add_border(im_res, b)
 
     # Image preprocessing:
     x = 1 - np.array(im_res)
@@ -29,8 +30,8 @@ if __name__ == '__main__':
     print(x.shape)
 
     # Load model:
-    mlflow.set_tracking_uri('file:../../../models/mlruns')
-    logged_model = 'runs:/07994b8f7f4d4c32be383958fbbfaeba/models'
+    mlflow.set_tracking_uri('file:../../../mlruns')
+    logged_model = 'runs:/73c37b1939b14ed2968585b761f7c9cf/models/'
     # Load model as a PyFuncModel.
     loaded_model = mlflow.pyfunc.load_model(logged_model)
 
