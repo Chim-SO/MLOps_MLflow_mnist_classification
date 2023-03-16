@@ -2,8 +2,7 @@
 # ------------------------------
 # Data parameters
 data:
-#  dataset_path : 'data/processed/'
-  dataset_path : '../../../data/processed/'
+  dataset_path : 'data/processed/'
 
 # Training parameters
 training:
@@ -12,8 +11,7 @@ training:
 
 # Logging and output parameters
 mlflow:
-#  mlruns_path: 'models/mlruns'
-  mlruns_path: 'file:../../../models/mlruns'
+  mlruns_path: 'models/mlruns'
   experiment_name: 'cnnbased'
 
 # Grid search:
